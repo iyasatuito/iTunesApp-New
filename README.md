@@ -22,6 +22,7 @@
 - RxJava2
 - Database : ROOM 
 - GSON for serialization/deserialization
+- Used Mockk for unit test
 - KenburnsView for aesthetics purposes
 
 # To install
@@ -30,3 +31,4 @@
 # Notes
 - used different layout / view for search items and main page items to show distiction
 - country used for searching = au
+- wasn't able to apply UI test 
