@@ -6,6 +6,12 @@
 - Implemented search function using iTunesAPI
 - Developed using Kotlin
 
+# Features
+- Displays featured movies, TV shows and top music in homepage
+- Clicking on an item takes user to detail page screen
+- Search for movies, tv shows
+- Has infinite scroll
+
 # Persistence
 - used ROOM database for persistence purposes
 - showing cached data when not connected to the internet on the main page
