@@ -1,6 +1,6 @@
 package com.pia.appetiser.test
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.pia.appetiser.test.data.entity.mapper.toDisplayableItunesDetails
 import com.pia.appetiser.test.domain.appusecase.*
 import com.pia.appetiser.test.domain.model.ItunesDetailEntity
@@ -14,13 +14,14 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
-
+@RunWith(AndroidJUnit4::class)
 class MainActivityViewModelTest {
 
-    @get: Rule
-    val instantExecutorRule = InstantTaskExecutorRule()
-
+//    @get: Rule
+//    @JvmField
+//    val instantExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: MainActivityViewModel
 
