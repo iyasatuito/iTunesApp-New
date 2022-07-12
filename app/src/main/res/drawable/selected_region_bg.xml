@@ -8,9 +8,9 @@
   </corners>
   <stroke
       android:width="0.3dp"
-      android:color="@color/app_accent">
+      android:color="@color/primary_text_color">
   </stroke>
   <solid
-      android:color="@color/app_accent">
+      android:color="@color/primary_text_color">
   </solid>
 </shape>
