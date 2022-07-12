@@ -26,5 +26,4 @@ data class DisplayableItunesDetails(
     val contentAdvisoryRating : String?,
     val shortDescription : String?,
     val longDescription : String?
-
 ) : Parcelable

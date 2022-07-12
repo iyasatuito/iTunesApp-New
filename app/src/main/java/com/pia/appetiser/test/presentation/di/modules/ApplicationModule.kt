@@ -9,10 +9,6 @@ import android.provider.Settings
 import androidx.room.Room
 import com.pia.appetiser.test.data.local.AppDatabase
 import com.pia.appetiser.test.presentation.application.AppetiserTestApplication
-import com.pia.appetiser.test.presentation.common.arch.PostExecutionThread
-import com.pia.appetiser.test.presentation.common.arch.ThreadExecutor
-import com.pia.appetiser.test.presentation.common.arch.ThreadPoolExecutor
-import com.pia.appetiser.test.presentation.common.arch.UIThread
 import com.pia.appetiser.test.presentation.di.PerApplication
 import dagger.Module
 import dagger.Provides
@@ -49,15 +45,6 @@ class ApplicationModule {
     @PerApplication
     fun provideSharedPreference(context: Context): SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
-
-//    @Provides
-//    @PerApplication
-//    internal fun provideThreadExecutor(jobExecutor: ThreadPoolExecutor): ThreadExecutor = jobExecutor
-//
-//    @Provides
-//    @PerApplication
-//    internal fun providePostExecutionThread(uiThread: UIThread): PostExecutionThread = uiThread
-
 
     @Provides
     @PerApplication

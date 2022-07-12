@@ -43,9 +43,9 @@ class DetailActivity : AppActivity() {
 
     private fun setView() {
 
-        GlideApp.with(this)
-            .load(itunesDetail.coverImageUrl)
-            .into(itunes_backdrop)
+//        GlideApp.with(this)
+//            .load(itunesDetail.coverImageUrl)
+//            .into(itunes_backdrop)
 
         itunes_poster_placeholder.visibility = View.GONE
         val video = findViewById<VideoView>(R.id.itunes_poster_detail) as VideoView
@@ -62,13 +62,13 @@ class DetailActivity : AppActivity() {
 
         if (itunesDetail.kind.equals("song") || itunesDetail.kind.equals("podcast")) itunes_poster_placeholder.visibility =
             View.VISIBLE
-        if (itunesDetail.contentAdvisoryRating != null) itunes_rating.text = resources.getString(
-            R.string.track_rating,
-            itunesDetail.contentAdvisoryRating
-        ) else itunes_rating.visibility = View.GONE
+//        if (itunesDetail.contentAdvisoryRating != null) itunes_rating.text = resources.getString(
+//            R.string.track_rating,
+//            itunesDetail.contentAdvisoryRating
+//        ) else itunes_rating.visibility = View.GONE
 
-        itunes_title.text = itunesDetail.trackName
-        itunes_artist_name_value.text = itunesDetail.artistName
+//        itunes_title.text = itunesDetail.trackName
+//        itunes_artist_name_value.text = itunesDetail.artistName
         itunes_artist_name_small_value.text = itunesDetail.artistName
         itunes_release_date_value.text = itunesDetail.releaseDate
         itunes_track_name_small.text = itunesDetail.trackName

@@ -1,6 +1,7 @@
 package com.pia.appetiser.test.presentation.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.pia.appetiser.test.R
@@ -8,7 +9,6 @@ import com.pia.appetiser.test.presentation.AppActivity
 import com.pia.appetiser.test.presentation.common.adapter.ItunesMediaAdapter
 import com.pia.appetiser.test.presentation.common.ext.getViewModel
 import com.pia.appetiser.test.presentation.common.ext.observe
-import com.pia.appetiser.test.presentation.common.ext.withViewModel
 import com.pia.appetiser.test.presentation.model.DisplayableItunesDetails
 import com.pia.appetiser.test.presentation.navigation.DetailScreenNavigator
 import com.pia.appetiser.test.presentation.ui.common.ResultState
@@ -18,7 +18,7 @@ import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
-class MainActivity : AppActivity(), ItunesMediaAdapter.Delegate {
+class MainActivity : AppActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -26,14 +26,9 @@ class MainActivity : AppActivity(), ItunesMediaAdapter.Delegate {
     @Inject
     lateinit var detailScreenNavigator: DetailScreenNavigator
 
-    @Inject
-    lateinit var featuredItunesMediaAdapter: ItunesMediaAdapter
+    private val featuredItunesMediaAdapter = ItunesMediaAdapter(::onItunesItemClicked)
 
-    @Inject
-    lateinit var tvShowsAdapter: ItunesMediaAdapter
-
-    @Inject
-    lateinit var topMusicAdapter: ItunesMediaAdapter
+    private val topMusicAdapter = ItunesMediaAdapter(::onItunesItemClicked)
 
 
     private val viewModel by lazy { getViewModel<MainActivityViewModel>(viewModelFactory) }
@@ -47,13 +42,11 @@ class MainActivity : AppActivity(), ItunesMediaAdapter.Delegate {
     }
 
     private fun loadContents() {
-        withViewModel<MainActivityViewModel>(viewModelFactory) {
-            refresh()
-        }
+        viewModel.refresh()
     }
 
     private fun observeViewModel() {
-        withViewModel<MainActivityViewModel>(viewModelFactory) {
+        with(viewModel) {
             observe(featuredMovieList, ::updateFeaturedMovies)
             observe(topMusicList, ::displayTopMusic)
             observe(isDataUpdated, ::handleLoadingOfData)
@@ -113,7 +106,7 @@ class MainActivity : AppActivity(), ItunesMediaAdapter.Delegate {
         }
     }
 
-    override fun onItunesItemClicked(itunesResponse: DisplayableItunesDetails) {
+    private fun onItunesItemClicked(itunesResponse: DisplayableItunesDetails) {
         detailScreenNavigator.navigate(itunesResponse)
     }
 }

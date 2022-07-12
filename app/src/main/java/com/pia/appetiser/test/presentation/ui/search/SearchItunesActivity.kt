@@ -10,11 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.pia.appetiser.test.R
 import com.pia.appetiser.test.presentation.AppActivity
-import com.pia.appetiser.test.presentation.common.adapter.SearchItunesMediaAdapter
 import com.pia.appetiser.test.presentation.common.adapter.SearchItunesMediaPagedAdapter
 import com.pia.appetiser.test.presentation.common.ext.withViewModel
 import com.pia.appetiser.test.presentation.common.rx.RxSearchViewSupport
-import com.pia.appetiser.test.presentation.model.DisplayableItunesDetails
 import com.pia.appetiser.test.presentation.model.State
 import com.pia.appetiser.test.presentation.navigation.DetailScreenNavigator
 import com.pia.appetiser.test.presentation.ui.common.ItemDecorationAlbumColumns
@@ -25,7 +23,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
-class SearchItunesActivity : AppActivity(), SearchItunesMediaAdapter.Delegate {
+class SearchItunesActivity : AppActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -85,11 +83,6 @@ class SearchItunesActivity : AppActivity(), SearchItunesMediaAdapter.Delegate {
         }
     }
 
-
-    override fun onItunesItemClicked(itunesResponse: DisplayableItunesDetails) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     private fun setupSearchView() {
         itunes_search_view.onActionViewExpanded()
         itunes_search_view.maxWidth = Integer.MAX_VALUE
@@ -120,7 +113,7 @@ class SearchItunesActivity : AppActivity(), SearchItunesMediaAdapter.Delegate {
             closeImageView.isEnabled = false
         }
 
-        val searchTextView = itunes_search_view.findViewById(R.id.search_src_text) as EditText
+        val searchTextView = itunes_search_view.findViewById(R.id.search_src_text) as AutoCompleteTextView
         if (searchTextView != null) {
 
             val params = searchTextView.layoutParams as LinearLayout.LayoutParams

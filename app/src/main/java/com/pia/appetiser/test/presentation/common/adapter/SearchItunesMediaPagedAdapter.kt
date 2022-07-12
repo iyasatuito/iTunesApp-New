@@ -23,14 +23,19 @@ class SearchItunesMediaPagedAdapter(
         (holder as SearchItunesMediaPagedItemViewHolder).bind(getItem(position), clickListener)
     }
 
-
     companion object {
         val DiffCallback = object : DiffUtil.ItemCallback<DisplayableItunesDetails>() {
-            override fun areItemsTheSame(oldItem: DisplayableItunesDetails, newItem: DisplayableItunesDetails): Boolean {
+            override fun areItemsTheSame(
+                oldItem: DisplayableItunesDetails,
+                newItem: DisplayableItunesDetails
+            ): Boolean {
                 return oldItem.trackId == newItem.trackId
             }
 
-            override fun areContentsTheSame(oldItem: DisplayableItunesDetails, newItem: DisplayableItunesDetails): Boolean {
+            override fun areContentsTheSame(
+                oldItem: DisplayableItunesDetails,
+                newItem: DisplayableItunesDetails
+            ): Boolean {
                 return oldItem == newItem
             }
         }
