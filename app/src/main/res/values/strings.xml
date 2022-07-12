@@ -1,13 +1,12 @@
 <resources>
-    <string name="app_name">Appetiser Test</string>
+    <string name="app_name">iMovie</string>
 
     <!-- MainActivity -->
     <string name="something_went_wrong_error_message">Something went wrong</string>
-    <string name="cached_data_message">These are your cached data</string>
+    <string name="cached_data_message">Network Error: These are your cached data</string>
     <string name="search_movies_text">Search movies</string>
     <string name="featured_movies_text">Featured Movies</string>
     <string name="top_music_text">Top Music</string>
-    <string name="new_tv_shows_text">New\nTV Shows</string>
 
     <!-- DetailActivity -->
     <string name="track_rating">Rating %1$s</string>

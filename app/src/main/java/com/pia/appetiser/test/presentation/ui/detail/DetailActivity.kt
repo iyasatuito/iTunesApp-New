@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.pia.appetiser.test.R
 import com.pia.appetiser.test.data.di.GlideApp
 import com.pia.appetiser.test.presentation.AppActivity
-import com.pia.appetiser.test.presentation.common.adapter.ItunesMediaAdapter
 import com.pia.appetiser.test.presentation.model.DisplayableItunesDetails
 import com.pia.appetiser.test.presentation.navigation.DetailScreenNavigator
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -16,10 +15,7 @@ import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 
-class DetailActivity : AppActivity(), ItunesMediaAdapter.Delegate {
-    override fun onItunesItemClicked(itunesResponse: DisplayableItunesDetails) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class DetailActivity : AppActivity() {
 
     companion object {
         const val KEY_ITUNES_OBJECT = "ITUNES_DETAILS_PARCELABLE"
@@ -27,9 +23,9 @@ class DetailActivity : AppActivity(), ItunesMediaAdapter.Delegate {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var detailScreenNavigator: DetailScreenNavigator
-
 
     private val itunesDetail by lazy {
         (intent.getParcelableExtra(KEY_ITUNES_OBJECT) as DisplayableItunesDetails)
@@ -43,7 +39,6 @@ class DetailActivity : AppActivity(), ItunesMediaAdapter.Delegate {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         setView()
-
     }
 
     private fun setView() {
@@ -61,12 +56,16 @@ class DetailActivity : AppActivity(), ItunesMediaAdapter.Delegate {
                 .load(R.drawable.media_placeholder)
                 .into(itunes_poster_placeholder)
             itunes_poster_placeholder.visibility = View.VISIBLE
-             false
+            false
         }
         video.start()
 
-        if (itunesDetail.kind.equals("song") || itunesDetail.kind.equals("podcast")) itunes_poster_placeholder.visibility = View.VISIBLE
-        if (itunesDetail.contentAdvisoryRating != null) itunes_rating.text = resources.getString(R.string.track_rating, itunesDetail.contentAdvisoryRating) else itunes_rating.visibility = View.GONE
+        if (itunesDetail.kind.equals("song") || itunesDetail.kind.equals("podcast")) itunes_poster_placeholder.visibility =
+            View.VISIBLE
+        if (itunesDetail.contentAdvisoryRating != null) itunes_rating.text = resources.getString(
+            R.string.track_rating,
+            itunesDetail.contentAdvisoryRating
+        ) else itunes_rating.visibility = View.GONE
 
         itunes_title.text = itunesDetail.trackName
         itunes_artist_name_value.text = itunesDetail.artistName
@@ -82,7 +81,5 @@ class DetailActivity : AppActivity(), ItunesMediaAdapter.Delegate {
         } else {
             itunes_description_values.text = resources.getString(R.string.no_data_text)
         }
-
     }
-
 }

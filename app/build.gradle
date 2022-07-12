@@ -57,7 +57,7 @@ dependencies {
     etcLibraries()
     firebaseLibraries()
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    compileOnly 'com.github.pengrad:jdk9-deps:1.0'
+
 }
 repositories {
     mavenCentral()

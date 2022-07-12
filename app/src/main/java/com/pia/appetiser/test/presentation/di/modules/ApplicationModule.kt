@@ -50,13 +50,13 @@ class ApplicationModule {
     fun provideSharedPreference(context: Context): SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
 
-    @Provides
-    @PerApplication
-    internal fun provideThreadExecutor(jobExecutor: ThreadPoolExecutor): ThreadExecutor = jobExecutor
-
-    @Provides
-    @PerApplication
-    internal fun providePostExecutionThread(uiThread: UIThread): PostExecutionThread = uiThread
+//    @Provides
+//    @PerApplication
+//    internal fun provideThreadExecutor(jobExecutor: ThreadPoolExecutor): ThreadExecutor = jobExecutor
+//
+//    @Provides
+//    @PerApplication
+//    internal fun providePostExecutionThread(uiThread: UIThread): PostExecutionThread = uiThread
 
 
     @Provides

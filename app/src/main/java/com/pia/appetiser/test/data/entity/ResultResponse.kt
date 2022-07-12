@@ -6,37 +6,37 @@ data class ResultResponse(
     @SerializedName("wrapperType")
     val wrapperType: String,
     @SerializedName("kind")
-    val kind: String?,
+    val kind: String? = null,
     @SerializedName("artistId")
     val artistId: Long?,
     @SerializedName("collectionId")
-    val collectionId: Long?,
+    val collectionId: Long? = null,
     @SerializedName("trackId")
     val trackId: Long,
     @SerializedName("artistName")
-    val artistName: String?,
+    val artistName: String? = null,
     @SerializedName("collectionName")
-    val collectionName: String?,
+    val collectionName: String? = null,
     @SerializedName("trackName")
     val trackName: String?,
     @SerializedName("collectionCensoredName")
-    val collectionCensoredName: String?,
+    val collectionCensoredName: String? = null,
     @SerializedName("trackCensoredName")
-    val trackCensoredName: String?,
+    val trackCensoredName: String? = null,
     @SerializedName("artistViewUrl")
-    val artistViewUrl: String?,
+    val artistViewUrl: String? = null,
     @SerializedName("collectionViewUrl")
-    val collectionViewUrl: String?,
+    val collectionViewUrl: String? = null,
     @SerializedName("trackViewUrl")
-    val trackViewUrl: String?,
+    val trackViewUrl: String? = null,
     @SerializedName("previewUrl")
-    val previewUrl: String?,
+    val previewUrl: String? = null,
     @SerializedName("artworkUrl30")
-    val artworkUrl30: String?,
+    val artworkUrl30: String? = null,
     @SerializedName("artworkUrl60")
-    val artworkUrl60: String?,
+    val artworkUrl60: String? = null,
     @SerializedName("artworkUrl100")
-    val artworkUrl100: String?,
+    val artworkUrl100: String? = null,
     @SerializedName("collectionPrice")
     val collectionPrice: Double,
     @SerializedName("trackPrice")
@@ -44,33 +44,33 @@ data class ResultResponse(
     @SerializedName("releaseDate")
     val releaseDate: String,
     @SerializedName("collectionExplicitness")
-    val collectionExplicitness: String,
+    val collectionExplicitness: String? = null,
     @SerializedName("trackExplicitness")
-    val trackExplicitness: String,
+    val trackExplicitness: String? = null,
     @SerializedName("discCount")
-    val discCount: Int,
+    val discCount: Int = 0,
     @SerializedName("discNumber")
-    val discNumber: Int,
+    val discNumber: Int = 0,
     @SerializedName("trackCount")
-    val trackCount: Int,
+    val trackCount: Int = 0,
     @SerializedName("trackNumber")
-    val trackNumber: Int,
+    val trackNumber: Int = 0,
     @SerializedName("trackTimeMillis")
-    val trackTimeMillis: Int,
+    val trackTimeMillis: Int = 0,
     @SerializedName("country")
-    val country: String,
+    val country: String? = null,
     @SerializedName("currency")
-    val currency: String,
+    val currency: String? = null,
     @SerializedName("primaryGenreName")
     val primaryGenreName: String,
     @SerializedName("isStreamable")
-    val isStreamable: Boolean?,
+    val isStreamable: Boolean? = false,
     @SerializedName("contentAdvisoryRating")
-    val contentAdvisoryRating: String?,
+    val contentAdvisoryRating: String? = null,
     @SerializedName("shortDescription")
     val shortDescription: String?,
     @SerializedName("longDescription")
     val longDescription: String?,
     @SerializedName("hasITunesExtras")
-    val hasITunesExtras: Boolean?
+    val hasITunesExtras: Boolean? = false
 )

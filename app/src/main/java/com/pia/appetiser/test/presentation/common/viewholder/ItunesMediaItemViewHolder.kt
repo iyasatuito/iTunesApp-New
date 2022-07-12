@@ -27,27 +27,15 @@ class ItunesMediaItemViewHolder(
     }
 
     init {
-
-        val computedWidth = (itemView.context.getScreenWidth() / 3.6).toInt()
-        val computedHeight = (computedWidth + computedWidth / 2)
-
-        val params = itemView.itunes_image.layoutParams
-
-        params.width = computedWidth
-        params.height = computedHeight
-
-        itemView.itunes_title.textSize = itemView.context.pixelsToSp((computedHeight / 12).toFloat())
-
         itemView.setOnClickListener {
             itunesDataView?.let { callback.onItunesItemClicked(it) }
         }
     }
 
-
-
     override fun bind(item: DisplayableItunesDetails) {
         this.itunesDataView = item
         itemView.itunes_title.text = item.trackName
+        itemView.itunes_rating.text = "Rating: " + (item.contentAdvisoryRating ?: "Not Available")
 
         GlideApp.with(itemView)
             .load(item.itemImageUrl)

@@ -33,7 +33,7 @@ class SearchItunesViewModel @Inject constructor(
             .setEnablePlaceholders(true)
             .build()
 
-        listing = LivePagedListBuilder<Int, DisplayableItunesDetails>(sourceFactory, config).build()
+        listing = LivePagedListBuilder(sourceFactory, config).build()
         listing.value?.dataSource?.invalidate()
 
         return listing

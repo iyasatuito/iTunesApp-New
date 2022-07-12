@@ -1,5 +1,6 @@
 package com.pia.appetiser.test.data.source.remote
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
@@ -12,7 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 
-
+@SuppressLint("CheckResult")
 class SearchItunesLoader(
     private val searchItunesUseCase: SearchItunesUseCase,
     private val term : String,
@@ -34,7 +35,7 @@ class SearchItunesLoader(
                },
                {
                    updateState(State.ERROR)
-                   setRetry(Action { loadInitial(params, callback) })
+                   setRetry { loadInitial(params, callback) }
                }
            )
     }
@@ -57,9 +58,8 @@ class SearchItunesLoader(
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, DisplayableItunesDetails>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // no need
     }
-
 
     private fun updateState(state: State) {
         this.state.postValue(state)
@@ -73,7 +73,6 @@ class SearchItunesLoader(
                 .subscribe()
         }
     }
-
 
     private fun setRetry(action: Action?) {
         retryCompletable = if (action == null) null else Completable.fromAction(action)

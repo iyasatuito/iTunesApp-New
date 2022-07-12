@@ -2,96 +2,84 @@ package com.pia.appetiser.test.presentation.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.android.schedulers.AndroidSchedulers
-import com.pia.appetiser.test.domain.appusecase.*
+import com.pia.appetiser.test.domain.appusecase.LoadFeaturedMoviesUseCase
+import com.pia.appetiser.test.domain.appusecase.LoadTopMusicUseCase
+import com.pia.appetiser.test.domain.appusecase.UpdateFeaturedMoviesUseCase
+import com.pia.appetiser.test.domain.appusecase.UpdateTopMusicUseCase
 import com.pia.appetiser.test.presentation.common.arch.BaseViewModel
 import com.pia.appetiser.test.presentation.model.DisplayableItunesDetails
+import com.pia.appetiser.test.presentation.ui.common.ResultState
+import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
-import kotlin.random.Random
 
 /**
  *
  * @property refresh initially retrieves data from remote source
  * @property loadFeaturedMovies loads successfully stored movies data from remote
  * @property loadTopMusic loads successfully stored music data from remote
- * @property loadTVShows loads successfully stored tv shows data from remote
  */
 
 class MainActivityViewModel @Inject constructor(
-    private val loadTVShowsUseCase: LoadTVShowsUseCase,
     private val loadFeaturedMoviesUseCase: LoadFeaturedMoviesUseCase,
     private val loadTopMusicUseCase: LoadTopMusicUseCase,
     private val updateTopMusicUseCase: UpdateTopMusicUseCase,
-    private val updateTVShowsUseCase: UpdateTVShowsUseCase,
     private val updateFeaturedMoviesUseCase: UpdateFeaturedMoviesUseCase
 ) : BaseViewModel() {
 
+    private val featuredMovieListResultLiveData =
+        MutableLiveData<ResultState<List<DisplayableItunesDetails>>>()
+    val featuredMovieList: LiveData<ResultState<List<DisplayableItunesDetails>>> =
+        featuredMovieListResultLiveData
 
-    private val coverItemResultLiveData = MutableLiveData<Result<DisplayableItunesDetails>>()
-    val coverItem: LiveData<Result<DisplayableItunesDetails>> = coverItemResultLiveData
+    private val tvShowListResultLiveData =
+        MutableLiveData<ResultState<List<DisplayableItunesDetails>>>()
+    val tvShowList: LiveData<ResultState<List<DisplayableItunesDetails>>> = tvShowListResultLiveData
 
-    private val featuredMovieListResultLiveData = MutableLiveData<Result<List<DisplayableItunesDetails>>>()
-    val featuredMovieList: LiveData<Result<List<DisplayableItunesDetails>>> = featuredMovieListResultLiveData
+    private val topMusicListResultLiveData =
+        MutableLiveData<ResultState<List<DisplayableItunesDetails>>>()
+    val topMusicList: LiveData<ResultState<List<DisplayableItunesDetails>>> =
+        topMusicListResultLiveData
 
-    private val tvShowListResultLiveData = MutableLiveData<Result<List<DisplayableItunesDetails>>>()
-    val tvShowList: LiveData<Result<List<DisplayableItunesDetails>>>  = tvShowListResultLiveData
-
-    private val topMusicListResultLiveData = MutableLiveData<Result<List<DisplayableItunesDetails>>>()
-    val topMusicList: LiveData<Result<List<DisplayableItunesDetails>>> = topMusicListResultLiveData
-
-    private val IsDataLoadedLiveData = MutableLiveData<Result<Boolean>>()
-    val isDataUpdated: LiveData<Result<Boolean>> = IsDataLoadedLiveData
+    private val isDataLoadedLiveData = MutableLiveData<ResultState<Boolean>>()
+    val isDataUpdated: LiveData<ResultState<Boolean>> = isDataLoadedLiveData
 
 
-    fun refresh(){
-        updateTVShowsUseCase()
+    fun refresh() {
+        updateFeaturedMoviesUseCase()
+            .doOnSubscribe { isDataLoadedLiveData.postValue(ResultState.Loading()) }
             .observeOn(AndroidSchedulers.mainThread())
-            .andThen(updateFeaturedMoviesUseCase())
             .andThen(updateTopMusicUseCase())
             .subscribe(
-                {IsDataLoadedLiveData.postValue(Result.success(true))},
-                {IsDataLoadedLiveData.postValue(Result.failure(it))}
+                { isDataLoadedLiveData.postValue(ResultState.Success(true)) },
+                { isDataLoadedLiveData.postValue(ResultState.Error(it)) }
             ).run(::addToDisposables)
-
     }
 
-    fun loadFeaturedMovies(){
+    fun loadFeaturedMovies() {
         loadFeaturedMoviesUseCase()
+            .doOnSubscribe { featuredMovieListResultLiveData.postValue(ResultState.Loading()) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    featuredMovieListResultLiveData.postValue(Result.success(it))
-                    coverItemResultLiveData.postValue(Result.success(it[Random.nextInt(0, it.size)]))
+                    featuredMovieListResultLiveData.postValue(ResultState.Success((it)))
                 },
                 {
-                    featuredMovieListResultLiveData.postValue(Result.failure(Throwable("Error")))
-                    coverItemResultLiveData.postValue(Result.failure(Throwable("Error")))
+                    featuredMovieListResultLiveData.postValue(ResultState.Error(it))
                 }
             ).run(::addToDisposables)
     }
 
-    fun loadTopMusic(){
+    fun loadTopMusic() {
         loadTopMusicUseCase()
+            .doOnSubscribe { topMusicListResultLiveData.postValue(ResultState.Loading()) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    topMusicListResultLiveData.postValue(Result.success(it))
+                    topMusicListResultLiveData.postValue(ResultState.Success((it)))
                 },
                 {
-                    topMusicListResultLiveData.postValue(Result.failure(Throwable("Error")))
+                    topMusicListResultLiveData.postValue(ResultState.Error(it))
                 }
             ).run(::addToDisposables)
     }
-
-
-    fun loadTVShows(){
-        loadTVShowsUseCase()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { tvShowListResultLiveData.postValue(Result.success(it)) },
-                { tvShowListResultLiveData.postValue(Result.failure(Throwable("Error"))) }
-            ).run(::addToDisposables)
-    }
-
-
 }

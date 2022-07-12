@@ -42,10 +42,10 @@ class SearchItunesActivity : AppActivity(), SearchItunesMediaAdapter.Delegate {
 
         val mToolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(mToolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.title = null
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = null
 
         withViewModel<SearchItunesViewModel>(viewModelFactory) {
             listing.observe(this@SearchItunesActivity, Observer {
@@ -55,7 +55,7 @@ class SearchItunesActivity : AppActivity(), SearchItunesMediaAdapter.Delegate {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
+        when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
                 return true
@@ -70,12 +70,10 @@ class SearchItunesActivity : AppActivity(), SearchItunesMediaAdapter.Delegate {
                 retry()
             }
         }) {
-            //to edit
             detailScreenNavigator.navigate(it)
         }
 
         searchItunesMediaPagedAdapter.setState(State.DONE)
-
 
         val itemCategoryDecorationAlbumColumns =
             ItemDecorationAlbumColumns(resources.getDimensionPixelSize(R.dimen.dp_7), 2)
@@ -108,7 +106,6 @@ class SearchItunesActivity : AppActivity(), SearchItunesMediaAdapter.Delegate {
                         searchMovieWithPage(term = term, country = "au", media = "movie")
                         listing.observe(this@SearchItunesActivity, Observer {
                             searchItunesMediaPagedAdapter.submitList(it)
-
                         })
                     }
                 },
